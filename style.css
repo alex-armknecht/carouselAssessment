@@ -1,0 +1,43 @@
+/* reminder: choose cute font later */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  background-color: pink;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.song {
+  width: 100%;
+  padding: 35px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.song-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.song-name .artist-name {
+  font-size: 1.2em;
+  color: #333;
+}

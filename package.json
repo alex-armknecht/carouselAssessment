@@ -1,0 +1,14 @@
+{
+  "name": "carouselAssessment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/alex-armknecht/carouselAssessment.git",
+  "author": "Alex Armknecht <alexandriaarmknecht@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^6.2.5"
+  }
+}

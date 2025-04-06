@@ -13,20 +13,29 @@ body {
 .container {
   text-align: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 90%;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+.carousel {
+  position: relative;
+  overflow: hidden;
+  padding: 0 10%; /* Creates space for peeking */
 }
 
 .song-list {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  transition: transform 0.5s ease;
+  will-change: transform;
 }
 
 .song {
-  width: 100%;
+  flex: 0 0 80%; /* Take 80% of visible area */
+  margin: 0 10px; /* Gives space between slides */
+  box-sizing: border-box;
   padding: 35px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.3);
+  background-color: rgb(209, 223, 250);
 }
 
 .song-image {
@@ -37,7 +46,8 @@ body {
   margin-bottom: 15px;
 }
 
-.song-name .artist-name {
+.song-name,
+.artist-name {
   font-size: 1.2em;
   color: #333;
 }

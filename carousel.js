@@ -15,6 +15,7 @@ const updateCarousel = (animate = true) => {
   carousel.style.transform = `translateX(-${
     currentIndex * songWidth - offset + 200
   }px)`;
+  updateIndicators();
 };
 
 // making songs loop so need clone
@@ -81,6 +82,28 @@ const move = (x) => {
     isDragging = false;
   }
 };
+
+// indicator dots functionality
+const indicatorContainer = document.querySelector(".indicators");
+
+updatedSongs.forEach((song, index) => { // make one dot per song (no clones)
+  if (!song.classList.contains("clone")) {
+    const dot = document.createElement("div");
+    dot.classList.add("indicator-dot");
+    indicatorContainer.appendChild(dot);
+  }
+});
+
+const updateIndicators = () => {
+  const dots = document.querySelectorAll(".indicator-dot");
+  const realIndex = (currentIndex - 1 + dots.length) % dots.length;
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === realIndex);
+  });
+};
+
+
 
 // for the looping effect
 carousel.addEventListener("transitionend", handleTransitionEnd);

@@ -61,6 +61,49 @@ body {
   margin: 5px 0;
 }
 
+/* style for controls and indicator dots below carosel*/
+
+.controls {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.arrows {
+  font-size: 2rem;
+  padding: 5px;
+  background-color: #fcddec;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.indicators {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #888;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.indicator-dot.active {
+  width: 12px;
+  height: 12px;
+  background-color: #333;
+  opacity: 1;
+}
+
+
 /* Make the carousel fit on mobile */
 @media (max-width: 600px) {
   .carousel {

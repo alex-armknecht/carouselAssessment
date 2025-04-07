@@ -30,15 +30,12 @@ songList.appendChild(firstClone);
 songList.insertBefore(lastClone, songs[0]);
 
 const updatedSongs = document.querySelectorAll(".song");
-let currentIndex = 1; // start from the first song (not the clone)
-
-let isJumping = false; // to show when we are jumping without animation (needed fix for mobile swipe)
+let currentIndex = 0; 
 
 const handleTransitionEnd = () => {
   const songCount = updatedSongs.length;
 
-  if (updatedSongs[currentIndex].classList.contains("clone") && !isJumping) {
-    isJumping = true;
+  if (updatedSongs[currentIndex].classList.contains("clone")) {
     if (currentIndex === 0) {
       // Moved to lastClone -- Jump to real last
       currentIndex = songCount - 2;
@@ -46,14 +43,7 @@ const handleTransitionEnd = () => {
       // Moved to firstClone -- Jump to real first
       currentIndex = 1;
     }
-
-    requestAnimationFrame(() => {
-      //needed to avoid glitch on mobile
-      updateCarousel(false); // Jump without animation
-      requestAnimationFrame(() => {
-        isJumping = false; // allow next normal transition
-      });
-    });
+    updateCarousel(false); // No animation
   }
 };
 
@@ -82,11 +72,11 @@ const move = (x) => {
   const difference = x - startX;
 
   if (Math.abs(difference) > 50) {
-    currentIndex =
-      difference > 0
-        ? (currentIndex - 1 + songs.length) % songs.length //user goes right
-        : (currentIndex + 1) % songs.length; //user goes left
-
+    if (difference > 0) {
+      currentIndex--; // swipe right
+    } else {
+      currentIndex++; // swipe left
+    }
     updateCarousel();
     isDragging = false;
   }
@@ -116,11 +106,30 @@ const updateIndicators = () => {
 // for the looping effect
 carousel.addEventListener("transitionend", handleTransitionEnd);
 
-// event listeners for mouse and touch events
-carousel.addEventListener("mousedown", (e) => start(e.clientX));
-carousel.addEventListener("mousemove", (e) => move(e.clientX));
-carousel.addEventListener("mouseup", () => (isDragging = false));
+// event listeners for mouse events
+carousel.addEventListener("mousedown", (e) => {
+  e.preventDefault(); // stop text/image drag
+  start(e.clientX);
+});
 
-carousel.addEventListener("touchstart", (e) => start(e.touches[0].clientX));
+carousel.addEventListener("mousemove", (e) => move(e.clientX));
+
+carousel.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+carousel.addEventListener("mouseleave", () => {
+  isDragging = false;
+});
+
+// event listeners for touch events
+carousel.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // stop scroll on touch devices
+  start(e.touches[0].clientX);
+});
+
 carousel.addEventListener("touchmove", (e) => move(e.touches[0].clientX));
-carousel.addEventListener("touchend", () => (isDragging = false));
+
+carousel.addEventListener("touchend", () => {
+  isDragging = false;
+});

@@ -32,10 +32,13 @@ songList.insertBefore(lastClone, songs[0]);
 const updatedSongs = document.querySelectorAll(".song");
 let currentIndex = 1; // start from the first song (not the clone)
 
+let isJumping = false; // to show when we are jumping without animation (needed fix for mobile swipe)
+
 const handleTransitionEnd = () => {
   const songCount = updatedSongs.length;
 
-  if (updatedSongs[currentIndex].classList.contains("clone")) {
+  if (updatedSongs[currentIndex].classList.contains("clone") && !isJumping) {
+    isJumping = true;
     if (currentIndex === 0) {
       // Moved to lastClone -- Jump to real last
       currentIndex = songCount - 2;
@@ -43,10 +46,16 @@ const handleTransitionEnd = () => {
       // Moved to firstClone -- Jump to real first
       currentIndex = 1;
     }
-    updateCarousel(false); // No animation
+
+    requestAnimationFrame(() => {
+      //needed to avoid glitch on mobile
+      updateCarousel(false); // Jump without animation
+      requestAnimationFrame(() => {
+        isJumping = false; // allow next normal transition
+      });
+    });
   }
 };
-
 
 // arrow button functionality
 document.querySelector("#prev").addEventListener("click", () => {
@@ -86,7 +95,8 @@ const move = (x) => {
 // indicator dots functionality
 const indicatorContainer = document.querySelector(".indicators");
 
-updatedSongs.forEach((song, index) => { // make one dot per song (no clones)
+updatedSongs.forEach((song, index) => {
+  // make one dot per song (no clones)
   if (!song.classList.contains("clone")) {
     const dot = document.createElement("div");
     dot.classList.add("indicator-dot");
@@ -102,8 +112,6 @@ const updateIndicators = () => {
     dot.classList.toggle("active", i === realIndex);
   });
 };
-
-
 
 // for the looping effect
 carousel.addEventListener("transitionend", handleTransitionEnd);

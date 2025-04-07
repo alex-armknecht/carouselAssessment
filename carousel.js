@@ -13,7 +13,7 @@ const updateCarousel = (animate = true) => {
   }
 
   carousel.style.transform = `translateX(-${
-    currentIndex * songWidth - offset
+    currentIndex * songWidth - offset + 200
   }px)`;
 };
 

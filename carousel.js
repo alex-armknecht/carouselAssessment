@@ -30,7 +30,7 @@ songList.appendChild(firstClone);
 songList.insertBefore(lastClone, songs[0]);
 
 const updatedSongs = document.querySelectorAll(".song");
-let currentIndex = 0; 
+let currentIndex = 0;
 
 const handleTransitionEnd = () => {
   const songCount = updatedSongs.length;
@@ -78,8 +78,13 @@ const move = (x) => {
       currentIndex++; // swipe left
     }
     updateCarousel();
-    isDragging = false;
+    endSwipe();
   }
+};
+
+const endSwipe = () => {
+  isDragging = false;
+  startX = 0;
 };
 
 // indicator dots functionality
@@ -108,28 +113,20 @@ carousel.addEventListener("transitionend", handleTransitionEnd);
 
 // event listeners for mouse events
 carousel.addEventListener("mousedown", (e) => {
-  e.preventDefault(); // stop text/image drag
+  e.preventDefault(); //stop text/image drag
   start(e.clientX);
 });
 
 carousel.addEventListener("mousemove", (e) => move(e.clientX));
-
-carousel.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-carousel.addEventListener("mouseleave", () => {
-  isDragging = false;
-});
+carousel.addEventListener("mouseup", endSwipe);
+carousel.addEventListener("mouseleave", endSwipe);
 
 // event listeners for touch events
+
 carousel.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // stop scroll on touch devices
+  e.preventDefault();
   start(e.touches[0].clientX);
 });
 
 carousel.addEventListener("touchmove", (e) => move(e.touches[0].clientX));
-
-carousel.addEventListener("touchend", () => {
-  isDragging = false;
-});
+carousel.addEventListener("touchend", endSwipe);

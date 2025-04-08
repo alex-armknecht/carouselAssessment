@@ -119,25 +119,24 @@ const updateIndicators = () => {
 let autoAdvanceInterval;
 let isAutoAdvancing = false;
 
+// Function to start the auto-advance
 const startAutoAdvance = () => {
   autoAdvanceInterval = setInterval(() => {
     currentIndex++;
     updateCarousel();
-  }, 1000); // 5000 milliseconds = 5 seconds
+  }, 5000); // 5000 milliseconds = 5 seconds
   isAutoAdvancing = true;
-  document.getElementById("auto-advance-btn").textContent =
-    "Pause Auto-Advance"; // Change button text to "Pause"
+  document.getElementById("auto-advance-img").classList.add("rotating"); // Start rotating the image
 };
 
-// let user stop the auto-advance
+// Function to stop the auto-advance
 const stopAutoAdvance = () => {
   clearInterval(autoAdvanceInterval);
   isAutoAdvancing = false;
-  document.getElementById("auto-advance-btn").textContent =
-    "Start Auto-Advance"; // Change button text to "Start"
+  document.getElementById("auto-advance-img").classList.remove("rotating"); // Stop rotating the image
 };
 
-// listen for the button click
+// listen for button click
 document.getElementById("auto-advance-btn").addEventListener("click", () => {
   if (isAutoAdvancing) {
     stopAutoAdvance();
@@ -145,6 +144,7 @@ document.getElementById("auto-advance-btn").addEventListener("click", () => {
     startAutoAdvance();
   }
 });
+
 
 
 

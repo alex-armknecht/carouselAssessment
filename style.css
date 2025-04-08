@@ -104,23 +104,44 @@ body {
   opacity: 1;
 }
 
+/* style for the record button and animation to make it spin */
+
 .auto-advance-container {
   margin: 20px 0;
+  display: flex;
+  justify-content: center;
 }
 
 #auto-advance-btn {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  background-color: #fcddec;
+  padding: 0;
+  background-color: transparent;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease;
+  display: inline-block; /* make the button stays the same size as the image */
 }
 
-#auto-advance-btn:hover {
-  background-color: #f1b6cd;
+#auto-advance-img {
+  width: 50px; 
+  height: auto;
+  transition: transform 0.3s ease; /
 }
+
+
+/* need Keyframe animation for continuous spin */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  animation: spin 3s linear infinite; /* make rotation 3 seconds per full rotation */
+}
+
 
 /* Make the carousel fit on mobile */
 @media (max-width: 600px) {

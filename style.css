@@ -1,6 +1,5 @@
-/* reminder: choose cute font later */
-
 body {
+  font-family: "Boldonse", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,8 +15,10 @@ body {
   max-width: 900px; /* Fixed max width for desktop */
   background-color: aliceblue;
   border-radius: 10px;
-  aspect-ratio: 3 / 1; /* Gives a rectangular shape */
   padding: 10px;
+  height: auto;
+  max-height: 700px;
+  box-sizing: border-box;
 }
 
 .carousel {
@@ -103,7 +104,6 @@ body {
   opacity: 1;
 }
 
-
 /* Make the carousel fit on mobile */
 @media (max-width: 600px) {
   .carousel {
@@ -112,5 +112,11 @@ body {
 
   .song {
     flex: 0 0 70%;
+  }
+  .song-name,
+  .artist-name {
+    font-size: 0.7em;
+    color: #333;
+    margin: 5px 0;
   }
 }

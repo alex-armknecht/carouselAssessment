@@ -61,19 +61,14 @@ document.querySelector("#next").addEventListener("click", () => {
 // swipe functionality
 let startX = 0;
 let isDragging = false;
-let swipeInProgress = false;  // New flag to prevent multiple swipe actions
 
 const start = (x) => {
-  if (swipeInProgress) return; // Prevent starting a new swipe if one is already in progress
-  console.log("Swipe started");  // Debugging start of swipe
   isDragging = true;
   startX = x;
-  swipeInProgress = true; // Mark swipe as in progress
 };
 
 const move = (x) => {
-  if (!isDragging || !swipeInProgress) return; // Stop if no swipe in progress
-  console.log("Swipe moving...");  // Debugging move function
+  if (!isDragging) return;
   const difference = x - startX;
 
   if (Math.abs(difference) > 50) {
@@ -83,16 +78,13 @@ const move = (x) => {
       currentIndex++; // swipe left
     }
     updateCarousel();
-    endSwipe(); // End swipe immediately after moving
+    endSwipe();
   }
 };
 
 const endSwipe = () => {
-  if (!swipeInProgress) return; // Prevent multiple executions of endSwipe
-  console.log("Swipe ended");  // Debugging end of swipe
   isDragging = false;
   startX = 0;
-  swipeInProgress = false; // Reset swipe in progress flag
 };
 
 // indicator dots functionality
@@ -130,24 +122,11 @@ carousel.addEventListener("mouseup", endSwipe);
 carousel.addEventListener("mouseleave", endSwipe);
 
 // event listeners for touch events
+
 carousel.addEventListener("touchstart", (e) => {
-  console.log("touchstart");
   e.preventDefault();
   start(e.touches[0].clientX);
 });
 
-carousel.addEventListener("touchmove", (e) => {
-  if (!swipeInProgress) return; // Ignore move if swipe is not in progress
-  console.log("touchmove");
-  move(e.touches[0].clientX);
-});
-
-carousel.addEventListener("touchend", () => {
-  console.log("touchend");
-  endSwipe(); // End the swipe when touch ends
-});
-
-carousel.addEventListener("touchcancel", () => {
-  console.log("touchcancel");
-  endSwipe(); // Reset if touch is canceled
-});
+carousel.addEventListener("touchmove", (e) => move(e.touches[0].clientX));
+carousel.addEventListener("touchend", endSwipe);

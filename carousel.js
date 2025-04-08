@@ -7,7 +7,11 @@ const updateCarousel = (animate = true) => {
   const offset = (carouselWidth - songWidth) / 2;
 
   // transition distance based of screen width
-  const movementDistance = window.innerWidth * 0.18;
+  const isScreenSmall =  window.innerWidth <= 800;
+  console.log(isScreenSmall);
+  const movementDistance = isScreenSmall
+    ? window.innerWidth * 0.12
+    : window.innerWidth * 0.17;
 
   if (!animate) {
     carousel.style.transition = "none";
@@ -110,6 +114,39 @@ const updateIndicators = () => {
     dot.classList.toggle("active", i === realIndex);
   });
 };
+
+// auto advance every 5 seconds -- extra credit
+let autoAdvanceInterval;
+let isAutoAdvancing = false;
+
+const startAutoAdvance = () => {
+  autoAdvanceInterval = setInterval(() => {
+    currentIndex++;
+    updateCarousel();
+  }, 1000); // 5000 milliseconds = 5 seconds
+  isAutoAdvancing = true;
+  document.getElementById("auto-advance-btn").textContent =
+    "Pause Auto-Advance"; // Change button text to "Pause"
+};
+
+// let user stop the auto-advance
+const stopAutoAdvance = () => {
+  clearInterval(autoAdvanceInterval);
+  isAutoAdvancing = false;
+  document.getElementById("auto-advance-btn").textContent =
+    "Start Auto-Advance"; // Change button text to "Start"
+};
+
+// listen for the button click
+document.getElementById("auto-advance-btn").addEventListener("click", () => {
+  if (isAutoAdvancing) {
+    stopAutoAdvance();
+  } else {
+    startAutoAdvance();
+  }
+});
+
+
 
 // for the looping effect
 carousel.addEventListener("transitionend", handleTransitionEnd);

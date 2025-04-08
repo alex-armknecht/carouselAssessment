@@ -104,6 +104,24 @@ body {
   opacity: 1;
 }
 
+.auto-advance-container {
+  margin: 20px 0;
+}
+
+#auto-advance-btn {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #fcddec;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#auto-advance-btn:hover {
+  background-color: #f1b6cd;
+}
+
 /* Make the carousel fit on mobile */
 @media (max-width: 600px) {
   .carousel {

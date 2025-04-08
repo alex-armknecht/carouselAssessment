@@ -7,8 +7,7 @@ const updateCarousel = (animate = true) => {
   const offset = (carouselWidth - songWidth) / 2;
 
   // transition distance based of screen width
-  const isScreenSmall =  window.innerWidth <= 800;
-  console.log(isScreenSmall);
+  const isScreenSmall = window.innerWidth <= 800;
   const movementDistance = isScreenSmall
     ? window.innerWidth * 0.12
     : window.innerWidth * 0.17;
@@ -80,9 +79,9 @@ const move = (x) => {
 
   if (Math.abs(difference) > 50) {
     if (difference > 0) {
-      currentIndex--; // swipe right
+      currentIndex--;
     } else {
-      currentIndex++; // swipe left
+      currentIndex++;
     }
     updateCarousel();
     endSwipe();
@@ -119,17 +118,15 @@ const updateIndicators = () => {
 let autoAdvanceInterval;
 let isAutoAdvancing = false;
 
-// Function to start the auto-advance
 const startAutoAdvance = () => {
   autoAdvanceInterval = setInterval(() => {
     currentIndex++;
     updateCarousel();
-  }, 5000); // 5000 milliseconds = 5 seconds
+  }, 5000);
   isAutoAdvancing = true;
   document.getElementById("auto-advance-img").classList.add("rotating"); // Start rotating the image
 };
 
-// Function to stop the auto-advance
 const stopAutoAdvance = () => {
   clearInterval(autoAdvanceInterval);
   isAutoAdvancing = false;
@@ -144,9 +141,6 @@ document.getElementById("auto-advance-btn").addEventListener("click", () => {
     startAutoAdvance();
   }
 });
-
-
-
 
 // for the looping effect
 carousel.addEventListener("transitionend", handleTransitionEnd);

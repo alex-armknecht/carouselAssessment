@@ -6,6 +6,9 @@ const updateCarousel = (animate = true) => {
   const carouselWidth = document.querySelector(".carousel").offsetWidth;
   const offset = (carouselWidth - songWidth) / 2;
 
+  // transition distance based of screen width
+  const movementDistance = window.innerWidth * 0.18;
+
   if (!animate) {
     carousel.style.transition = "none";
   } else {
@@ -13,7 +16,7 @@ const updateCarousel = (animate = true) => {
   }
 
   carousel.style.transform = `translateX(-${
-    currentIndex * songWidth - offset + 200
+    currentIndex * songWidth - offset + movementDistance
   }px)`;
   updateIndicators();
 };

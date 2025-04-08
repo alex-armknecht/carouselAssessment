@@ -122,7 +122,6 @@ carousel.addEventListener("mouseup", endSwipe);
 carousel.addEventListener("mouseleave", endSwipe);
 
 // event listeners for touch events
-
 carousel.addEventListener("touchstart", (e) => {
   e.preventDefault();
   start(e.touches[0].clientX);
@@ -130,3 +129,4 @@ carousel.addEventListener("touchstart", (e) => {
 
 carousel.addEventListener("touchmove", (e) => move(e.touches[0].clientX));
 carousel.addEventListener("touchend", endSwipe);
+carousel.addEventListener("touchcancel", endSwipe); // Added touchcancel to reset swipe handling
